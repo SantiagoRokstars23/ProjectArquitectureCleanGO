@@ -7,6 +7,8 @@ import (
 
 	"GO_PROJECT_ARQUITECTURE/internal/delivery/handlers"
 	"GO_PROJECT_ARQUITECTURE/internal/infrastructure/persistence"
+	"GO_PROJECT_ARQUITECTURE/internal/infrastructure/config"
+	"GO_PROJECT_ARQUITECTURE/internal/infrastructure/db"
 	"GO_PROJECT_ARQUITECTURE/internal/usecase"
 	"GO_PROJECT_ARQUITECTURE/pkg/middleware"
 
@@ -31,6 +33,10 @@ import (
 }*/
 
 func main(){
+
+/*	cfg := config.LoadConfig()
+
+	db := db.NewPostgresConnection(cfg.DBUrl)*/
 
 	db, err := sql.Open("postgres", "postgres://user:pass@localhost:5432/cardsdb?sslmode=disable")
 	if err != nil {
