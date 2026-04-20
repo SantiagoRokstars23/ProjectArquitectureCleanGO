@@ -37,3 +37,22 @@ func (r *PostgresCardRepository) FindAll() ([]domain.Card, error) {
 
 	return cards, nil
 }
+
+func (r *PostgresRepo) FindByID(id int) (*domain.Card, error) {
+	row := r.db.QueryRow("SELECT id, number, name, limit FROM cards WHERE id=$1", id)
+
+	var c domain.Card
+	err := row.Scan(&c.ID, &c.Number, &c.Name, &c.Limit)
+	if err != nil {
+		return nil, err
+	}
+	return &c, nil
+}
+
+func (r *PostgresRepo) Save(card domain.Card) error {
+	_, err := r.db.Exec(
+		"INSERT INTO cards (number, name, limit) VALUES ($1,$2,$3)",
+		card.Number, card.Name, card.Limit,
+	)
+	return err
+}
