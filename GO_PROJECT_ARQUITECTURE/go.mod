@@ -1,0 +1,3 @@
+module GO_PROJECT_ARQUITECTURE
+
+go 1.26.2
