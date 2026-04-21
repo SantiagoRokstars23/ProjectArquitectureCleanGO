@@ -1,6 +1,6 @@
 package usecase
 
-import "GO_PROJECT_ARQUITECTURE/internal/domain"
+import "github.com/santiago/cards-service/internal/domain"
 
 type ListCardsUseCase struct {
 	repo domain.CardRepository

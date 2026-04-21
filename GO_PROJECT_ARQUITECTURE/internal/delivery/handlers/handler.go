@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"GO_PROJECT_ARQUITECTURE/internal/usecase"
+	"github.com/santiago/cards-service/internal/usecase"
 	"encoding/json"
 	"net/http"
 )

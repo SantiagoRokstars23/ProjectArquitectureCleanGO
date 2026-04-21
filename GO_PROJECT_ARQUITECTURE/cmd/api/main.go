@@ -3,14 +3,11 @@ package main
 import (
 	"database/sql"
 	"log"
-	"net/http"
 
-	"GO_PROJECT_ARQUITECTURE/internal/delivery/handlers"
-	"GO_PROJECT_ARQUITECTURE/internal/infrastructure/persistence"
-	"GO_PROJECT_ARQUITECTURE/internal/infrastructure/config"
-	"GO_PROJECT_ARQUITECTURE/internal/infrastructure/db"
-	"GO_PROJECT_ARQUITECTURE/internal/usecase"
-	"GO_PROJECT_ARQUITECTURE/pkg/middleware"
+	"github.com/santiago/cards-service/internal/delivery/handlers"
+	"github.com/santiago/cards-service/internal/infrastructure/persistence"
+	"github.com/santiago/cards-service/internal/usecase"
+	"github.com/santiago/cards-service/pkg/middleware"
 
 		"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
@@ -43,18 +40,20 @@ func main(){
 		log.Fatal(err)
 	}
 
-	repo := persistence.NewPostgresRepo(db)
+	repo := persistence.NewPostgresCardRepository(db)
 	uc := usecase.NewCardUseCase(repo)
-	handler := http.NewCardHandler(uc)
+	handler := handlers.NewCardHandler(uc)
 
 
 
 	r := gin.Default()
 
+	public := r.Group("/cards")
+	public.GET("", handler.List)
+
 	protected := r.Group("/cards")
 	protected.Use(middleware.JWTAuth())
 	{
-		protected.GET("", handler.List)
 		protected.GET("/:id", handler.Get)
 		protected.POST("", handler.Create)
 	}

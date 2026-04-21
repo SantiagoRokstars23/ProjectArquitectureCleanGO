@@ -1,11 +1,10 @@
 package handlers
 
 import (
-	"GO_PROJECT_ARQUITECTURE/internal/domain"
-	"GO_PROJECT_ARQUITECTURE/internal/usecase"
+	"github.com/santiago/cards-service/internal/domain"
+	"github.com/santiago/cards-service/internal/usecase"
 	"net/http"
 	"strconv"
-
 	"github.com/gin-gonic/gin"
 )
 
